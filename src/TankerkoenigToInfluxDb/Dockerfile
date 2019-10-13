@@ -6,9 +6,9 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.0-nanoserver-1809 AS build
 WORKDIR /src
-COPY ["TankerkoenigToInfluxDb/TankerkoenigToInfluxDb.csproj", "TankerkoenigToInfluxDb/"]
-RUN dotnet restore "TankerkoenigToInfluxDb/TankerkoenigToInfluxDb.csproj"
+#COPY ["TankerkoenigToInfluxDb/TankerkoenigToInfluxDb.csproj", "TankerkoenigToInfluxDb/"]
 COPY . .
+RUN dotnet restore "TankerkoenigToInfluxDb/TankerkoenigToInfluxDb.csproj"
 WORKDIR "/src/TankerkoenigToInfluxDb"
 RUN dotnet build "TankerkoenigToInfluxDb.csproj" -c Release -o /app/build
 

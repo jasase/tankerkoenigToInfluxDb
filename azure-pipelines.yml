@@ -27,6 +27,15 @@ stages:
         runtime: 'core'
         configFilePath: 'gitversion.yml'
 
+    - task: NuGetToolInstaller@1
+      inputs:
+        versionSpec: 
+
+    - task: NuGetAuthenticate@0
+      inputs:
+        nuGetServiceConnections: 'GitHub JaSaSe NuGet'
+        forceReinstallCredentialProvider: true
+
     - task: Docker@2
       displayName: Build the image
       inputs:
