@@ -21,6 +21,7 @@ namespace Tankpreise
         private readonly TankerkoenigApi _api;
         private readonly Dictionary<string, Tankstelle> _tankstellen;
         private readonly ILogger _logger;
+        private readonly TankpreiseSetting _setting;
         private readonly IInfluxDbUpload _influxDbUpload;
 
         private int _lastRequestDay;
@@ -28,8 +29,9 @@ namespace Tankpreise
         public TankpreiseJob(ILogManager logManager, ILogger logger, TankpreiseSetting setting, IInfluxDbUpload influxDbUpload)
         {
             _logger = logger;
+            _setting = setting;
             _influxDbUpload = influxDbUpload;
-            _api = new TankerkoenigApi(setting, logManager.GetLogger(typeof(TankerkoenigApi)));
+            _api = new TankerkoenigApi(_setting, logManager.GetLogger(typeof(TankerkoenigApi)));
             _tankstellen = new Dictionary<string, Tankstelle>();
             _lastRequestDay = -1;
         }
@@ -55,7 +57,7 @@ namespace Tankpreise
         }
 
         private void UploadPrices(TankstellenPreis[] prices)
-            => _influxDbUpload.QueueWrite(CreateInfluxDbEntries(prices).ToArray(), 5, "tankstelle");
+            => _influxDbUpload.QueueWrite(CreateInfluxDbEntries(prices).ToArray(), 5, _setting.Database);
 
         private IEnumerable<InfluxDbEntry> CreateInfluxDbEntries(IEnumerable<TankstellenPreis> prices)
         {
