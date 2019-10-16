@@ -37,7 +37,7 @@ stages:
         restoreSolution: '**/*.sln'
         feedsToUse: 'select'
         vstsFeed: 'e745086d-201a-4e45-8d8f-ed7088052af8'
-        restoreDirectory: 'src/NugetPackage'
+        restoreDirectory: 'NugetPackage'
 
     - task: Docker@2
       displayName: Build the image
