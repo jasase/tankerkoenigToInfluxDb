@@ -43,7 +43,7 @@ stages:
       displayName: Build the image
       inputs:
         containerRegistry: 'GitHub Docker'
-        repository: 'jasase/tankerkoenigtoinfluxdb'
+        repository: 'jasase/tankerkoenigtoinfluxdb/tankerkoenigtoinfluxdb'
         command: 'build'
         Dockerfile: '**/Dockerfile'
         buildContext: '$(Build.SourcesDirectory)/src'
@@ -53,7 +53,7 @@ stages:
       displayName: Push the image
       inputs:
         containerRegistry: 'GitHub Docker'
-        repository: 'jasase/tankerkoenigtoinfluxdb'
+        repository: 'jasase/tankerkoenigtoinfluxdb/tankerkoenigtoinfluxdb'
         command: 'push'
         tags: |
           $(GitVersion.ASSEMBLYSEMFILEVER)
