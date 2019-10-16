@@ -31,10 +31,12 @@ stages:
       inputs:
         versionSpec: 
 
-    - task: NuGetAuthenticate@0
+    - task: NuGetCommand@2
       inputs:
-        nuGetServiceConnections: 'GitHub JaSaSe NuGet'
-        forceReinstallCredentialProvider: true
+        command: 'restore'
+        restoreSolution: '**/*.sln'
+        feedsToUse: 'select'
+        restoreDirectory: 'src/NugetPackage'
 
     - task: Docker@2
       displayName: Build the image
