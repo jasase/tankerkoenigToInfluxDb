@@ -42,8 +42,8 @@ stages:
     - task: Docker@2
       displayName: Build the image
       inputs:
-        containerRegistry: 'GitHub Docker'
-        repository: 'jasase/tankerkoenigtoinfluxdb/runner'
+        containerRegistry: 'Docker Hub'
+        repository: 'jasase/tankerkoenigtoinfluxdb'
         command: 'build'
         Dockerfile: '**/Dockerfile'
         buildContext: '$(Build.SourcesDirectory)/src'
@@ -52,7 +52,7 @@ stages:
     - task: Docker@2
       displayName: Push the image
       inputs:
-        containerRegistry: 'GitHub Docker'
-        repository: 'jasase/tankerkoenigtoinfluxdb/runner'
+        containerRegistry: 'Docker Hub'
+        repository: 'jasase/tankerkoenigtoinfluxdb'
         command: 'push'
-        tags: $(GitVersion.NuGetVersionV2)
+        tags: '$(GitVersion.NuGetVersionV2)'
