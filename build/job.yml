@@ -1,0 +1,44 @@
+parameters:
+  name: ''
+  pool: ''
+
+jobs:
+- job: ${{ parameters.name }}
+  pool: ${{ parameters.pool }}
+  steps:
+  
+    - task: GitVersion@5
+      displayName: 'Get Version Number'
+      inputs:
+        runtime: 'core'
+        configFilePath: 'gitversion.yml'
+
+    - task: NuGetToolInstaller@1
+      inputs:
+        versionSpec: 
+
+    - task: NuGetCommand@2
+      inputs:
+        command: 'restore'
+        restoreSolution: '**/*.sln'
+        feedsToUse: 'select'
+        vstsFeed: 'e745086d-201a-4e45-8d8f-ed7088052af8'
+        restoreDirectory: 'NugetPackage'
+
+    - task: Docker@2
+      displayName: Build the image
+      inputs:
+        containerRegistry: 'Docker Hub'
+        repository: 'jasase/tankerkoenigtoinfluxdb'
+        command: 'build'
+        Dockerfile: '**/Dockerfile'
+        buildContext: '$(Build.SourcesDirectory)/src'
+        tags: '$(GitVersion.NuGetVersionV2)'
+          
+    - task: Docker@2
+      displayName: Push the image
+      inputs:
+        containerRegistry: 'Docker Hub'
+        repository: 'jasase/tankerkoenigtoinfluxdb'
+        command: 'push'
+        tags: '$(GitVersion.NuGetVersionV2)'
