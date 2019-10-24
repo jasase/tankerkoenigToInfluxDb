@@ -15,12 +15,12 @@ stages:
 - stage: Build
   displayName: Build image
   jobs:  
-  - template: jobs/build.yml  # Template reference
+  - template: build/job.yml  # Template reference
     parameters:
       name: windows
       pool:
         vmImage: 'windows-latest'
-  - template: jobs/build.yml  # Template reference
+  - template: build/job.yml  # Template reference
     parameters:
       name: linux
       pool:
