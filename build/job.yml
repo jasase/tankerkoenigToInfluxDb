@@ -33,7 +33,7 @@ jobs:
         command: 'build'
         Dockerfile: '**/Dockerfile'
         buildContext: '$(Build.SourcesDirectory)/src'
-        tags: '$(GitVersion.NuGetVersionV2)'
+        tags: '$(GitVersion.NuGetVersionV2)-${{ parameters.name }}'
           
     - task: Docker@2
       displayName: Push the image
@@ -41,4 +41,4 @@ jobs:
         containerRegistry: 'Docker Hub'
         repository: 'jasase/tankerkoenigtoinfluxdb'
         command: 'push'
-        tags: '$(GitVersion.NuGetVersionV2)'
+        tags: '$(GitVersion.NuGetVersionV2)-${{ parameters.name }}'
