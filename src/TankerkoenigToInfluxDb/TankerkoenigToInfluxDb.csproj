@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="NLog2.config">
+    <None Update="NLog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
