@@ -16,6 +16,7 @@ FROM build AS publish
 RUN dotnet publish "TankerkoenigToInfluxDb.csproj" -c Release -o /app/publish
 
 FROM base AS final
+VOLUME /logs /configuration
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "TankerkoenigToInfluxDb.dll", "Tankpreise"]
+ENTRYPOINT ["dotnet", "TankerkoenigToInfluxDb.dll"]

@@ -1,6 +1,7 @@
 ﻿using Framework.Abstraction.Extension;
 using Newtonsoft.Json;
 using System;
+using System.Globalization;
 using System.Net.Http;
 
 namespace Tankpreise.Tankerkoenig
@@ -26,15 +27,15 @@ namespace Tankpreise.Tankerkoenig
             };
         }
 
-        public ListResultEntity RequestList(string lat, string lng, int radius)
+        public ListResultEntity RequestList(double lat, double lng, int radius)
         {
-            var relativeUri = string.Format(REQUEST_URI_LIST, lat, lng, radius, _settings.TankerkoeningApiKey);
+            var relativeUri = string.Format(CultureInfo.InvariantCulture, REQUEST_URI_LIST, lat, lng, radius, _settings.TankerkoeningApiKey);
             return CallApi<ListResultEntity>(relativeUri);
         }
 
         public PricesResultEntity RequestPrices(string[] id)
         {
-            var relativeUri = string.Format(REQUEST_URI_PRICES, string.Join(",", id), _settings.TankerkoeningApiKey);
+            var relativeUri = string.Format(CultureInfo.InvariantCulture, REQUEST_URI_PRICES, string.Join(",", id), _settings.TankerkoeningApiKey);
             return CallApi<PricesResultEntity>(relativeUri);
         }
 

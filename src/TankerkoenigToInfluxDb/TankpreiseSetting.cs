@@ -6,6 +6,7 @@ namespace Tankpreise
     {
         public string TankerkoeningApiKey { get; set; }
         public string Database { get; set; }
+        public string Locations { get; set; }
 
         public TankpreiseSetting()
         {
