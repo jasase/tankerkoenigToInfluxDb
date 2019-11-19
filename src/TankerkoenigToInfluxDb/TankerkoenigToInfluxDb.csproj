@@ -21,4 +21,10 @@
     <PackageReference Include="ServiceHost.Docker" Version="1.0.28" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
